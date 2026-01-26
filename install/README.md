@@ -33,7 +33,7 @@ git clone https://github.com/fluxcd/flux2
 cd flux2
 ```
 
-Build the `flux` binary (requires go >= 1.15):
+Build the `flux` binary (requires go >= 1.25):
 
 ```bash
 make build
