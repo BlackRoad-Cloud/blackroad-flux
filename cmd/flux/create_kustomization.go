@@ -197,15 +197,25 @@ func createKsCmdRun(cmd *cobra.Command, args []string) error {
 			}
 			kind := kindObj[0]
 
-			//TODO: (stefan) extend this list with all the kstatus builtin kinds
+			// kstatus builtin kinds for health checking
 			kinds := map[string]bool{
-				"Deployment":           true,
-				"DaemonSet":            true,
-				"StatefulSet":          true,
-				helmv2.HelmReleaseKind: true,
+				"Deployment":               true,
+				"DaemonSet":                true,
+				"StatefulSet":              true,
+				"ReplicaSet":               true,
+				"Pod":                      true,
+				"PersistentVolumeClaim":    true,
+				"Service":                  true,
+				"Job":                      true,
+				"CronJob":                  true,
+				"ConfigMap":                true,
+				"Secret":                   true,
+				"PodDisruptionBudget":      true,
+				"CustomResourceDefinition": true,
+				helmv2.HelmReleaseKind:     true,
 			}
 			if !kinds[kind] {
-				return fmt.Errorf("invalid health check kind '%s' can be HelmRelease, Deployment, DaemonSet or StatefulSet", kind)
+				return fmt.Errorf("invalid health check kind '%s' must be one of: HelmRelease, Deployment, DaemonSet, StatefulSet, ReplicaSet, Pod, PersistentVolumeClaim, Service, Job, CronJob, ConfigMap, Secret, PodDisruptionBudget, CustomResourceDefinition", kind)
 			}
 			nameNs := strings.Split(kindObj[1], ".")
 			if len(nameNs) != 2 {
